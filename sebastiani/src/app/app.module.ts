@@ -5,14 +5,25 @@ import { MarkdownModule } from 'ngx-markdown';
 import { AppComponent } from './app.component';
 import { ContentService } from './services/content.service';
 
+import { RouterModule, Routes } from '@angular/router';
+import { ContentComponent } from './components/content/content.component';
+
+
+const routes: Routes = [
+  { path: '', component: ContentComponent },
+  { path: 'test', component: ContentComponent }
+];
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ContentComponent
   ],
   imports: [
     BrowserModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    RouterModule.forRoot(routes)
   ],
   providers: [ ContentService ],
   bootstrap: [ AppComponent ]
