@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ContentService } from './services/content.service';
 import { Observable } from 'rxjs/Observable';
+import { Page } from './model/model';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,16 @@ import { Observable } from 'rxjs/Observable';
 export class AppComponent {
 
   public contentService: ContentService;
-  public title = 'app';
+  public page: Observable<Page>;
+  public title: string;
+  public content: string;
 
   constructor(contentService: ContentService) {
     this.contentService = contentService;
-    this.contentService.data.subscribe(d => this.title = d);
+    contentService.page.subscribe(p => {
+      this.title = p.title;
+      this.content = p.content;
+    });
   }
 
 }
