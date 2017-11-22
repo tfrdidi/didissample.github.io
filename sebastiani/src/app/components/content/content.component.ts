@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ContentService } from '../../services/content.service';
 import { Observable } from 'rxjs/Observable';
+
+import { ContentService } from '../../services/content.service';
 import { Page } from '../../model/model';
 
 @Component({
@@ -16,7 +17,9 @@ export class ContentComponent {
   public content: string;
 
   constructor(contentService: ContentService) {
+
     this.contentService = contentService;
+    
     contentService.page.subscribe(p => {
       this.title = p.title;
       this.content = p.content;

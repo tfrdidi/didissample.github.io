@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
+import { HttpClientModule }    from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ContentService } from './services/content.service';
-
-import { RouterModule, Routes } from '@angular/router';
 import { ContentComponent } from './components/content/content.component';
 
 
@@ -23,9 +23,12 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     MarkdownModule.forRoot(),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    HttpClientModule
   ],
-  providers: [ ContentService ],
+  providers: [ 
+    ContentService 
+  ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
