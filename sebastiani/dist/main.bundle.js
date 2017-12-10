@@ -49,6 +49,8 @@ module.exports = "<router-outlet></router-outlet>"
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_content_service__ = __webpack_require__("../../../../../src/app/services/content.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -58,16 +60,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+
+
 
 
 var AppComponent = (function () {
-    function AppComponent(contentService) {
+    function AppComponent(contentService, document) {
         var _this = this;
+        this.document = document;
         this.contentService = contentService;
         contentService.page.subscribe(function (p) {
             _this.title = p.title;
             _this.content = p.content;
         });
+        var bases = this.document.getElementsByTagName('base');
+        if (bases.length > 0) {
+            bases[0].setAttribute('href', __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseHref);
+        }
     }
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -75,7 +87,8 @@ var AppComponent = (function () {
             template: __webpack_require__("../../../../../src/app/app.component.html"),
             styles: [__webpack_require__("../../../../../src/app/app.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_content_service__["a" /* ContentService */]])
+        __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__angular_common__["c" /* DOCUMENT */])),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_content_service__["a" /* ContentService */], Object])
     ], AppComponent);
     return AppComponent;
 }());
@@ -275,12 +288,9 @@ var ContentService = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
-// The file contents for the current environment will overwrite these during build.
-// The build system defaults to the dev environment which uses `environment.ts`, but if you do
-// `ng build --env=prod` then `environment.prod.ts` will be used instead.
-// The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    production: false
+    production: true,
+    baseHref: "/sebastiani/dist/"
 };
 
 

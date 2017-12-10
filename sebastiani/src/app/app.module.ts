@@ -27,7 +27,7 @@ const routes: Routes = [
     HttpClientModule
   ],
   providers: [ 
-    ContentService 
+    ContentService
   ],
   bootstrap: [ AppComponent ]
 })
