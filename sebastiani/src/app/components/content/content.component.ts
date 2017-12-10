@@ -15,6 +15,7 @@ export class ContentComponent {
   public page: Observable<Page>;
   public title: string;
   public content: string;
+  public imageUrl: string;
 
   constructor(contentService: ContentService) {
 
@@ -23,6 +24,7 @@ export class ContentComponent {
     contentService.page.subscribe(p => {
       this.title = p.title;
       this.content = p.content;
+      this.imageUrl = p.imageUrl;
     });
   }
 
