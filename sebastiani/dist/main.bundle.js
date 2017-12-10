@@ -255,7 +255,7 @@ var ContentService = (function () {
         mockdata.title = 'Blödsinn';
         mockdata.content = '# bla blub';
         this.page = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](mockdata);
-        this.page = this.http.get("http://localhost:4200/assets/content/loc.json");
+        this.page = this.http.get("assets/content/loc.json");
     }
     ContentService.prototype.ngOnInit = function () {
     };

@@ -21,7 +21,7 @@ export class ContentService implements OnInit {
     mockdata.content = '# bla blub';
     this.page = new BehaviorSubject(mockdata);
 
-    this.page = this.http.get("http://localhost:4200/assets/content/loc.json");
+    this.page = this.http.get("assets/content/loc.json");
   }
 
   ngOnInit(): void {
