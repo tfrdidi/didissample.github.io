@@ -23,9 +23,9 @@ export class ContentComponent {
     
     contentService.page.subscribe(p => {
       this.title = p.title;
-      this.content = p.content;
       this.imageUrl = p.imageUrl;
     });
+    this.content = contentService.content;
   }
 
 }

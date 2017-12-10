@@ -1,5 +1,5 @@
 {
     "title": "json Titel",
     "imageUrl": "assets/images/start.jpg",
-    "content": "json Inhalt"
+    "contentUrl": "assets/content/main.md"
 }

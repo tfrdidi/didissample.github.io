@@ -177,7 +177,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/content/content.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n  <a routerLink=\"/\">\n    <h1>\n      {{title}}\n    </h1>\n  </a>\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{imageUrl}}\">\n</div>\n\n<markdown [data]=\"content\">\n</markdown>"
+module.exports = "<div style=\"text-align:center\">\n  <a routerLink=\"/\">\n    <h1>\n      {{title}}\n    </h1>\n  </a>\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{imageUrl}}\">\n</div>\n\n<markdown [data]=\"contentService.content\">\n</markdown>"
 
 /***/ }),
 
@@ -205,9 +205,9 @@ var ContentComponent = (function () {
         this.contentService = contentService;
         contentService.page.subscribe(function (p) {
             _this.title = p.title;
-            _this.content = p.content;
             _this.imageUrl = p.imageUrl;
         });
+        this.content = contentService.content;
     }
     ContentComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -263,12 +263,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var ContentService = (function () {
     function ContentService(http) {
+        var _this = this;
         this.http = http;
         var mockdata = new __WEBPACK_IMPORTED_MODULE_3__model_model__["a" /* Page */]();
         mockdata.title = 'Blödsinn';
-        mockdata.content = '# bla blub';
         this.page = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](mockdata);
+        this.content = 'init';
         this.page = this.http.get("assets/content/loc.json");
+        this.page.subscribe(function (p) {
+            var requestOptions = Object.assign({}, { responseType: 'text' });
+            _this.http.get(p.contentUrl, { responseType: 'text' }).subscribe(function (response) {
+                _this.content = response;
+            });
+        });
     }
     ContentService.prototype.ngOnInit = function () {
     };
@@ -288,9 +295,13 @@ var ContentService = (function () {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return environment; });
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
 var environment = {
-    production: true,
-    baseHref: "/sebastiani/dist/"
+    production: false,
+    baseHref: "/"
 };
 
 
