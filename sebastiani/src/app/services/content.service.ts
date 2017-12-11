@@ -17,19 +17,13 @@ export class ContentService implements OnInit {
 
   constructor(http: HttpClient) {
     this.http = http;
-
-    var mockdata = new Page();
-    mockdata.title = 'Blödsinn';
-    this.page = new BehaviorSubject(mockdata);
-    this.content = 'init';
-
     this.page = this.http.get("assets/content/loc.json");
     this.page.subscribe((p: Page) => {
       const requestOptions = Object.assign(
         {}, 
         { responseType: 'text' }, 
       );
-      this.http.get(p.contentUrl, {responseType: 'text'}).subscribe(response => {
+      this.http.get("assets/content/" + p.contentUrl, {responseType: 'text'}).subscribe(response => {
         this.content = response;
       });
     });

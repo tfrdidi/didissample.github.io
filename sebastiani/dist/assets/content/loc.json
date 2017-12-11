@@ -1,5 +1,20 @@
 {
-    "title": "json Titel",
-    "imageUrl": "assets/images/start.jpg",
-    "contentUrl": "assets/content/main.md"
+    "url": "/",
+    "title": "Sebastiani Lengfurt",
+    "imageUrl": "start.jpg",
+    "contentUrl": "main.md",
+    "subpages": [
+        {
+            "url": "/geschichte",
+            "title": "Geschichte",
+            "imageUrl": "start.jpg",
+            "contentUrl": "main.md"
+        },
+        {
+            "url": "/test",
+            "title": "Test",
+            "imageUrl": "start.jpg",
+            "contentUrl": "main.md"
+        }
+    ]
 }

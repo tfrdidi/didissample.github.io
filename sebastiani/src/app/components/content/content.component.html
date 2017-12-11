@@ -9,3 +9,11 @@
 
 <markdown [data]="contentService.content">
 </markdown>
+
+{{route}}
+
+<div class="loc">
+  <div class="subpage" *ngFor="let p of subpages">
+    <a *ngIf="p.url != route" routerLink="{{p.url}}">{{p.title}}</a>
+  </div>
+</div>

@@ -126,7 +126,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var routes = [
     { path: '', component: __WEBPACK_IMPORTED_MODULE_7__components_content_content_component__["a" /* ContentComponent */] },
-    { path: 'test', component: __WEBPACK_IMPORTED_MODULE_7__components_content_content_component__["a" /* ContentComponent */] }
+    { path: '**', component: __WEBPACK_IMPORTED_MODULE_7__components_content_content_component__["a" /* ContentComponent */] }
 ];
 var AppModule = (function () {
     function AppModule() {
@@ -140,7 +140,7 @@ var AppModule = (function () {
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ngx_markdown__["a" /* MarkdownModule */].forRoot(),
-                __WEBPACK_IMPORTED_MODULE_4__angular_router__["a" /* RouterModule */].forRoot(routes),
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* RouterModule */].forRoot(routes),
                 __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["b" /* HttpClientModule */]
             ],
             providers: [
@@ -177,7 +177,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/content/content.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n  <a routerLink=\"/\">\n    <h1>\n      {{title}}\n    </h1>\n  </a>\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{imageUrl}}\">\n</div>\n\n<markdown [data]=\"contentService.content\">\n</markdown>"
+module.exports = "<div style=\"text-align:center\">\n  <a routerLink=\"/\">\n    <h1>\n      {{title}}\n    </h1>\n  </a>\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{imageUrl}}\">\n</div>\n\n<markdown [data]=\"contentService.content\">\n</markdown>\n\n{{route}}\n\n<div class=\"loc\">\n  <div class=\"subpage\" *ngFor=\"let p of subpages\">\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\">{{p.title}}</a>\n  </div>\n</div>"
 
 /***/ }),
 
@@ -187,7 +187,8 @@ module.exports = "<div style=\"text-align:center\">\n  <a routerLink=\"/\">\n   
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContentComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_content_service__ = __webpack_require__("../../../../../src/app/services/content.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_content_service__ = __webpack_require__("../../../../../src/app/services/content.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -199,40 +200,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var ContentComponent = (function () {
-    function ContentComponent(contentService) {
+    function ContentComponent(contentService, router) {
         var _this = this;
+        console.log('ContentComponent Constructor');
+        this.router = router;
         this.contentService = contentService;
         contentService.page.subscribe(function (p) {
             _this.title = p.title;
-            _this.imageUrl = p.imageUrl;
+            _this.imageUrl = "assets/images/" + p.imageUrl;
+            _this.subpages = p.subpages;
+            _this.url = p.url;
         });
         this.content = contentService.content;
     }
+    ContentComponent.prototype.ngOnInit = function () {
+        console.log("on init");
+        this.route = this.router.url;
+    };
     ContentComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-content',
             template: __webpack_require__("../../../../../src/app/components/content/content.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/content/content.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_content_service__["a" /* ContentService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_content_service__["a" /* ContentService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]])
     ], ContentComponent);
     return ContentComponent;
-}());
-
-
-
-/***/ }),
-
-/***/ "../../../../../src/app/model/model.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Page; });
-var Page = (function () {
-    function Page() {
-    }
-    return Page;
 }());
 
 
@@ -245,9 +240,7 @@ var Page = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContentService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__ = __webpack_require__("../../../../rxjs/_esm5/BehaviorSubject.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_model__ = __webpack_require__("../../../../../src/app/model/model.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -259,20 +252,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
-
 var ContentService = (function () {
     function ContentService(http) {
         var _this = this;
         this.http = http;
-        var mockdata = new __WEBPACK_IMPORTED_MODULE_3__model_model__["a" /* Page */]();
-        mockdata.title = 'Blödsinn';
-        this.page = new __WEBPACK_IMPORTED_MODULE_1_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](mockdata);
-        this.content = 'init';
         this.page = this.http.get("assets/content/loc.json");
         this.page.subscribe(function (p) {
             var requestOptions = Object.assign({}, { responseType: 'text' });
-            _this.http.get(p.contentUrl, { responseType: 'text' }).subscribe(function (response) {
+            _this.http.get("assets/content/" + p.contentUrl, { responseType: 'text' }).subscribe(function (response) {
                 _this.content = response;
             });
         });
@@ -281,7 +268,7 @@ var ContentService = (function () {
     };
     ContentService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
     ], ContentService);
     return ContentService;
 }());
