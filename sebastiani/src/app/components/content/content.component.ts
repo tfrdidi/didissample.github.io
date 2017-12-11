@@ -37,6 +37,9 @@ export class ContentComponent implements OnInit {
       this.url = p.url;
     });
     this.content = contentService.content;
+    this.router.events.subscribe(a => {
+      this.ngOnInit();
+    })
   }
 
   public ngOnInit() {

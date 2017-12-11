@@ -177,7 +177,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/content/content.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\n  <a routerLink=\"/\">\n    <h1>\n      {{title}}\n    </h1>\n  </a>\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{imageUrl}}\">\n</div>\n\n<markdown [data]=\"contentService.content\">\n</markdown>\n\n{{route}}\n\n<div class=\"loc\">\n  <div class=\"subpage\" *ngFor=\"let p of subpages\">\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\">{{p.title}}</a>\n  </div>\n</div>"
+module.exports = "<div style=\"text-align:center\">\r\n  <a routerLink=\"/\">\r\n    <h1>\r\n      {{title}}\r\n    </h1>\r\n  </a>\r\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{imageUrl}}\">\r\n</div>\r\n\r\n<markdown [data]=\"contentService.content\">\r\n</markdown>\r\n\r\nInhaltsverzeichnis:\r\n<div class=\"loc\">\r\n  <div class=\"subpage\" *ngFor=\"let p of subpages\">\r\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\"><p>{{p.title}}</p></a>\r\n    <p *ngIf=\"p.url == route\">{{p.title}}</p>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -214,6 +214,9 @@ var ContentComponent = (function () {
             _this.url = p.url;
         });
         this.content = contentService.content;
+        this.router.events.subscribe(function (a) {
+            _this.ngOnInit();
+        });
     }
     ContentComponent.prototype.ngOnInit = function () {
         console.log("on init");

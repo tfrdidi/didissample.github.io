@@ -10,10 +10,10 @@
 <markdown [data]="contentService.content">
 </markdown>
 
-{{route}}
-
+Inhaltsverzeichnis:
 <div class="loc">
   <div class="subpage" *ngFor="let p of subpages">
-    <a *ngIf="p.url != route" routerLink="{{p.url}}">{{p.title}}</a>
+    <a *ngIf="p.url != route" routerLink="{{p.url}}"><p>{{p.title}}</p></a>
+    <p *ngIf="p.url == route">{{p.title}}</p>
   </div>
 </div>

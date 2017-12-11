@@ -15,6 +15,12 @@
             "title": "Test",
             "imageUrl": "start.jpg",
             "contentUrl": "main.md"
+        },
+        {
+            "url": "/pups",
+            "title": "Pups",
+            "imageUrl": "start.jpg",
+            "contentUrl": "main.md"
         }
     ]
 }
