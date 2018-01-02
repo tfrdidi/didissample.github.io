@@ -20,7 +20,6 @@ export class ContentComponent implements OnInit {
   private router: Router;
 
   constructor(contentService: ContentService, router: Router) {
-    console.log('ContentComponent Constructor');
     this.router = router;
     this.contentService = contentService;
 
@@ -32,12 +31,10 @@ export class ContentComponent implements OnInit {
   }
 
   public ngOnInit() {
-    console.log("on init");
     this.updateRoute();
   }
 
   private updateRoute() {
-    console.log("update route");
     this.route = this.router.url;
   }
 }

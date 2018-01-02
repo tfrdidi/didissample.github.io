@@ -12,7 +12,7 @@
 
 Inhaltsverzeichnis:
 <div class="loc">
-  <div class="subpage" *ngFor="let p of contentService?.currentPage?.subpages">
+  <div class="subpage" *ngFor="let p of contentService?.completePage?.subpages">
     <a *ngIf="p.url != route" routerLink="{{p.url}}">
       <p>{{p.title}}</p>
     </a>

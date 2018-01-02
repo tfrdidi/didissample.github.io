@@ -169,7 +169,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/content/content.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\r\n  <a routerLink=\"/\">\r\n    <h1>\r\n      {{contentService?.currentPage?.title}}\r\n    </h1>\r\n  </a>\r\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{contentService?.currentPage?.imageUrl}}\">\r\n</div>\r\n\r\n<markdown [data]=\"contentService?.currentPage?.content\">\r\n</markdown>\r\n\r\nInhaltsverzeichnis:\r\n<div class=\"loc\">\r\n  <div class=\"subpage\" *ngFor=\"let p of contentService?.currentPage?.subpages\">\r\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\">\r\n      <p>{{p.title}}</p>\r\n    </a>\r\n    <p *ngIf=\"p.url == route\">{{p.title}}</p>\r\n  </div>\r\n</div>"
+module.exports = "<div style=\"text-align:center\">\r\n  <a routerLink=\"/\">\r\n    <h1>\r\n      {{contentService?.currentPage?.title}}\r\n    </h1>\r\n  </a>\r\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{contentService?.currentPage?.imageUrl}}\">\r\n</div>\r\n\r\n<markdown [data]=\"contentService?.currentPage?.content\">\r\n</markdown>\r\n\r\nInhaltsverzeichnis:\r\n<div class=\"loc\">\r\n  <div class=\"subpage\" *ngFor=\"let p of contentService?.completePage?.subpages\">\r\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\">\r\n      <p>{{p.title}}</p>\r\n    </a>\r\n    <p *ngIf=\"p.url == route\">{{p.title}}</p>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -196,7 +196,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ContentComponent = (function () {
     function ContentComponent(contentService, router) {
         var _this = this;
-        console.log('ContentComponent Constructor');
         this.router = router;
         this.contentService = contentService;
         this.router.events.subscribe(function (a) {
@@ -206,11 +205,9 @@ var ContentComponent = (function () {
         });
     }
     ContentComponent.prototype.ngOnInit = function () {
-        console.log("on init");
         this.updateRoute();
     };
     ContentComponent.prototype.updateRoute = function () {
-        console.log("update route");
         this.route = this.router.url;
     };
     ContentComponent = __decorate([
@@ -228,6 +225,21 @@ var ContentComponent = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/model/model.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Page; });
+var Page = (function () {
+    function Page() {
+    }
+    return Page;
+}());
+
+
+
+/***/ }),
+
 /***/ "../../../../../src/app/services/content.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -236,6 +248,7 @@ var ContentComponent = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_model__ = __webpack_require__("../../../../../src/app/model/model.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -248,23 +261,57 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ContentService = (function () {
     function ContentService(http, router) {
-        var _this = this;
+        this.http = http;
+        this.router = router;
         this.http = http;
         console.log("Constructor of ContentService");
-        this.page = this.http.get("assets/content/loc.json");
-        this.page.subscribe(function (p) {
-            _this.currentPage = p;
-            _this.currentPage.imageUrl = "assets/images/" + p.imageUrl;
-            console.log("image url: " + _this.currentPage.imageUrl);
-            var requestOptions = Object.assign({}, { responseType: 'text' });
-            _this.http.get("assets/content/" + p.contentUrl, { responseType: 'text' }).subscribe(function (response) {
-                _this.currentPage.content = response;
+        this.loadInitPage();
+    }
+    ContentService.prototype.loadInitPage = function () {
+        var _this = this;
+        this.http.get("assets/content/loc.json").subscribe(function (p) {
+            _this.completePage = p;
+            _this.completePage.imageUrl = "assets/images/" + p.imageUrl;
+            _this.completePage.contentUrl = "assets/content/" + p.contentUrl;
+            _this.completePage.subpages.forEach(function (s) {
+                s.imageUrl = "assets/images/" + s.imageUrl;
+                s.contentUrl = "assets/content/" + s.contentUrl;
+            });
+            _this.http.get(p.contentUrl, { responseType: 'text' }).subscribe(function (response) {
+                _this.completePage.content = response;
+                _this.updateCurrentPage();
+            });
+            _this.router.events.subscribe(function (a) {
+                if (a instanceof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* ActivationEnd */]) {
+                    _this.updateCurrentPage();
+                }
             });
         });
-    }
-    ContentService.prototype.ngOnInit = function () {
+    };
+    ContentService.prototype.updateCurrentPage = function () {
+        var newUrl = this.router.url;
+        console.log("updateCurrentPage: " + newUrl);
+        if (this.completePage.url === newUrl) {
+            this.currentPage = this.completePage;
+        }
+        else {
+            var newPage = this.completePage.subpages.find(function (s) { return s.url === newUrl; });
+            if (newPage != undefined) {
+                this.currentPage = newPage;
+                if (newPage.content == undefined || newPage.content.length < 1) {
+                    this.http.get(newPage.contentUrl, { responseType: 'text' }).subscribe(function (response) {
+                        newPage.content = response;
+                    });
+                }
+            }
+            else {
+                this.currentPage = new __WEBPACK_IMPORTED_MODULE_3__model_model__["a" /* Page */]();
+                this.currentPage.title = "Gibt's nicht";
+            }
+        }
     };
     ContentService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
