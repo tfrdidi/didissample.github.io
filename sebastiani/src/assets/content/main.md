@@ -1,5 +1,3 @@
-# Sebastiani Lengfurt
-
 Das Sebastiani-Fest wird alljährlich am Wochenende vor oder nach dem Gedenktag des Hl. Sebastian, dem 20. Januar, gefeiert. Es geht auf ein Gelübde der Lengfurter Bevölkerung aus dem Pestjahr 1632 zurück. Auf Grund der Fürbitte an den Hl. Sebastian soll damals die Pest gewichen sein. Die Lengfurter Bürger gelobten daraufhin alljährlich den Festtag des Hl. Sebastian zu begehen.
 
 Das Fest wird jedes Jahr mit Fackelzug, militärischem Aufzug, Fahnenschwenken, Festgottesdienst und Andacht begangen. Organisiert und durchgeführt wird dieses Fest von den Mitgliedern des Sebastianivereins, stellvertretend für die gesamte Lengfurter Bevölkerung. Zu diesem Fest sind besonders alle Lengfurter, aber auch alle anderen Interessierten aus nah und fern eingeladen.
