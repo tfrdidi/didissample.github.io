@@ -156,7 +156,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "a {\r\n    text-decoration: none;\r\n}\r\n\r\n\r\n.headerImage {\r\n    width: 100%;\r\n    height: 200px;\r\n    -o-object-fit: none;\r\n       object-fit: none;\r\n    -o-object-position: center;\r\n       object-position: center;\r\n}\r\n\r\n.pageTopLink {\r\n    color: rgb(60 ,60, 60);\r\n    font-size: 1.5em;\r\n    font-family: sans-serif;\r\n    text-align: center;\r\n    margin: 10px 0 10px 0;\r\n}\r\n\r\n@media (min-width: 500px) {\r\n    .headerImage {\r\n        height: 300px;\r\n    }\r\n}\r\n\r\n@media (min-width: 1000px) {\r\n    .headerImage {\r\n        height: 450px;\r\n    }\r\n}", ""]);
 
 // exports
 
@@ -169,7 +169,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/content/content.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\r\n  <a routerLink=\"/\">\r\n    <h1>\r\n      {{contentService?.currentPage?.title}}\r\n    </h1>\r\n  </a>\r\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{contentService?.currentPage?.imageUrl}}\">\r\n</div>\r\n\r\n<markdown [data]=\"contentService?.currentPage?.content\">\r\n</markdown>\r\n\r\nInhaltsverzeichnis:\r\n<div class=\"loc\">\r\n  <div class=\"subpage\" *ngFor=\"let p of contentService?.completePage?.subpages\">\r\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\">\r\n      <p>{{p.title}}</p>\r\n    </a>\r\n    <p *ngIf=\"p.url == route\">{{p.title}}</p>\r\n  </div>\r\n</div>"
+module.exports = "<div style=\"text-align:center\">\r\n  <a routerLink=\"/\">\r\n    <h1 class=\"pageTopLink\">\r\n      {{contentService?.completePage?.title}}\r\n    </h1>\r\n  </a>\r\n  <img class=\"headerImage\" alt=\"Angular Logo\" src=\"{{contentService?.currentPage?.imageUrl}}\">\r\n</div>\r\n\r\n<markdown [data]=\"contentService?.currentPage?.content\">\r\n</markdown>\r\n\r\nInhaltsverzeichnis:\r\n<div class=\"loc\">\r\n  <div class=\"subpage\" *ngFor=\"let p of contentService?.completePage?.subpages\">\r\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\">\r\n      <p>{{p.title}}</p>\r\n    </a>\r\n    <p *ngIf=\"p.url == route\">{{p.title}}</p>\r\n  </div>\r\n</div>"
 
 /***/ }),
 

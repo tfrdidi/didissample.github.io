@@ -1,10 +1,10 @@
 <div style="text-align:center">
   <a routerLink="/">
-    <h1>
-      {{contentService?.currentPage?.title}}
+    <h1 class="pageTopLink">
+      {{contentService?.completePage?.title}}
     </h1>
   </a>
-  <img width="300" alt="Angular Logo" src="{{contentService?.currentPage?.imageUrl}}">
+  <img class="headerImage" alt="Angular Logo" src="{{contentService?.currentPage?.imageUrl}}">
 </div>
 
 <markdown [data]="contentService?.currentPage?.content">
