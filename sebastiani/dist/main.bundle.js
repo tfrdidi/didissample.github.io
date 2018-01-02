@@ -48,9 +48,8 @@ module.exports = "<router-outlet></router-outlet>"
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_content_service__ = __webpack_require__("../../../../../src/app/services/content.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common__ = __webpack_require__("../../../common/esm5/common.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__environments_environment__ = __webpack_require__("../../../../../src/environments/environment.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -66,19 +65,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 
 
-
 var AppComponent = (function () {
-    function AppComponent(contentService, document) {
-        var _this = this;
+    function AppComponent(document) {
         this.document = document;
-        this.contentService = contentService;
-        contentService.page.subscribe(function (p) {
-            _this.title = p.title;
-            _this.content = p.content;
-        });
         var bases = this.document.getElementsByTagName('base');
         if (bases.length > 0) {
-            bases[0].setAttribute('href', __WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].baseHref);
+            bases[0].setAttribute('href', __WEBPACK_IMPORTED_MODULE_2__environments_environment__["a" /* environment */].baseHref);
         }
     }
     AppComponent = __decorate([
@@ -87,8 +79,8 @@ var AppComponent = (function () {
             template: __webpack_require__("../../../../../src/app/app.component.html"),
             styles: [__webpack_require__("../../../../../src/app/app.component.css")]
         }),
-        __param(1, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */])(__WEBPACK_IMPORTED_MODULE_2__angular_common__["c" /* DOCUMENT */])),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_content_service__["a" /* ContentService */], Object])
+        __param(0, Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["z" /* Inject */])(__WEBPACK_IMPORTED_MODULE_1__angular_common__["c" /* DOCUMENT */])),
+        __metadata("design:paramtypes", [Object])
     ], AppComponent);
     return AppComponent;
 }());
@@ -140,7 +132,7 @@ var AppModule = (function () {
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ngx_markdown__["a" /* MarkdownModule */].forRoot(),
-                __WEBPACK_IMPORTED_MODULE_4__angular_router__["b" /* RouterModule */].forRoot(routes),
+                __WEBPACK_IMPORTED_MODULE_4__angular_router__["c" /* RouterModule */].forRoot(routes),
                 __WEBPACK_IMPORTED_MODULE_3__angular_common_http__["b" /* HttpClientModule */]
             ],
             providers: [
@@ -177,7 +169,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/components/content/content.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div style=\"text-align:center\">\r\n  <a routerLink=\"/\">\r\n    <h1>\r\n      {{title}}\r\n    </h1>\r\n  </a>\r\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{imageUrl}}\">\r\n</div>\r\n\r\n<markdown [data]=\"contentService.content\">\r\n</markdown>\r\n\r\nInhaltsverzeichnis:\r\n<div class=\"loc\">\r\n  <div class=\"subpage\" *ngFor=\"let p of subpages\">\r\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\"><p>{{p.title}}</p></a>\r\n    <p *ngIf=\"p.url == route\">{{p.title}}</p>\r\n  </div>\r\n</div>"
+module.exports = "<div style=\"text-align:center\">\r\n  <a routerLink=\"/\">\r\n    <h1>\r\n      {{contentService?.currentPage?.title}}\r\n    </h1>\r\n  </a>\r\n  <img width=\"300\" alt=\"Angular Logo\" src=\"{{contentService?.currentPage?.imageUrl}}\">\r\n</div>\r\n\r\n<markdown [data]=\"contentService?.currentPage?.content\">\r\n</markdown>\r\n\r\nInhaltsverzeichnis:\r\n<div class=\"loc\">\r\n  <div class=\"subpage\" *ngFor=\"let p of contentService?.currentPage?.subpages\">\r\n    <a *ngIf=\"p.url != route\" routerLink=\"{{p.url}}\">\r\n      <p>{{p.title}}</p>\r\n    </a>\r\n    <p *ngIf=\"p.url == route\">{{p.title}}</p>\r\n  </div>\r\n</div>"
 
 /***/ }),
 
@@ -207,19 +199,18 @@ var ContentComponent = (function () {
         console.log('ContentComponent Constructor');
         this.router = router;
         this.contentService = contentService;
-        contentService.page.subscribe(function (p) {
-            _this.title = p.title;
-            _this.imageUrl = "assets/images/" + p.imageUrl;
-            _this.subpages = p.subpages;
-            _this.url = p.url;
-        });
-        this.content = contentService.content;
         this.router.events.subscribe(function (a) {
-            _this.ngOnInit();
+            if (a instanceof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivationEnd */]) {
+                _this.updateRoute();
+            }
         });
     }
     ContentComponent.prototype.ngOnInit = function () {
         console.log("on init");
+        this.updateRoute();
+    };
+    ContentComponent.prototype.updateRoute = function () {
+        console.log("update route");
         this.route = this.router.url;
     };
     ContentComponent = __decorate([
@@ -228,7 +219,7 @@ var ContentComponent = (function () {
             template: __webpack_require__("../../../../../src/app/components/content/content.component.html"),
             styles: [__webpack_require__("../../../../../src/app/components/content/content.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_content_service__["a" /* ContentService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* Router */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_content_service__["a" /* ContentService */], __WEBPACK_IMPORTED_MODULE_1__angular_router__["b" /* Router */]])
     ], ContentComponent);
     return ContentComponent;
 }());
@@ -244,6 +235,7 @@ var ContentComponent = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ContentService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("../../../common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -255,15 +247,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
 var ContentService = (function () {
-    function ContentService(http) {
+    function ContentService(http, router) {
         var _this = this;
         this.http = http;
+        console.log("Constructor of ContentService");
         this.page = this.http.get("assets/content/loc.json");
         this.page.subscribe(function (p) {
+            _this.currentPage = p;
+            _this.currentPage.imageUrl = "assets/images/" + p.imageUrl;
+            console.log("image url: " + _this.currentPage.imageUrl);
             var requestOptions = Object.assign({}, { responseType: 'text' });
             _this.http.get("assets/content/" + p.contentUrl, { responseType: 'text' }).subscribe(function (response) {
-                _this.content = response;
+                _this.currentPage.content = response;
             });
         });
     }
@@ -271,7 +268,7 @@ var ContentService = (function () {
     };
     ContentService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
     ], ContentService);
     return ContentService;
 }());

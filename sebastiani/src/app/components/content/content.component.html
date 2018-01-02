@@ -1,19 +1,21 @@
 <div style="text-align:center">
   <a routerLink="/">
     <h1>
-      {{title}}
+      {{contentService?.currentPage?.title}}
     </h1>
   </a>
-  <img width="300" alt="Angular Logo" src="{{imageUrl}}">
+  <img width="300" alt="Angular Logo" src="{{contentService?.currentPage?.imageUrl}}">
 </div>
 
-<markdown [data]="contentService.content">
+<markdown [data]="contentService?.currentPage?.content">
 </markdown>
 
 Inhaltsverzeichnis:
 <div class="loc">
-  <div class="subpage" *ngFor="let p of subpages">
-    <a *ngIf="p.url != route" routerLink="{{p.url}}"><p>{{p.title}}</p></a>
+  <div class="subpage" *ngFor="let p of contentService?.currentPage?.subpages">
+    <a *ngIf="p.url != route" routerLink="{{p.url}}">
+      <p>{{p.title}}</p>
+    </a>
     <p *ngIf="p.url == route">{{p.title}}</p>
   </div>
 </div>

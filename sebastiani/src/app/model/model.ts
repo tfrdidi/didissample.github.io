@@ -4,4 +4,5 @@ export class Page {
     public imageUrl: string;
     public contentUrl: string;
     public subpages: Array<Page>;
+    public content: string;
 }

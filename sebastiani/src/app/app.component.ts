@@ -12,18 +12,7 @@ import { environment } from '../environments/environment';
 })
 export class AppComponent {
 
-  public contentService: ContentService;
-  public page: Observable<Page>;
-  public title: string;
-  public content: string;
-
-  constructor(contentService: ContentService, @Inject(DOCUMENT) private document) {
-    this.contentService = contentService;
-    contentService.page.subscribe(p => {
-      this.title = p.title;
-      this.content = p.content;
-    });
-
+  constructor( @Inject(DOCUMENT) private document) {
     let bases = this.document.getElementsByTagName('base');
     if (bases.length > 0) {
       bases[0].setAttribute('href', environment.baseHref);
