@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivationEnd } from '@angular/router';
+import { MarkdownService } from 'ngx-markdown';
 
 import { ContentService } from '../../services/content.service';
 import { Page } from '../../model/model';
@@ -18,8 +19,9 @@ export class ContentComponent implements OnInit {
   public contentService: ContentService;
   public route: string;
   private router: Router;
+  public content: string;
 
-  constructor(contentService: ContentService, router: Router) {
+  constructor(contentService: ContentService, router: Router, private markdownService: MarkdownService) {
     this.router = router;
     this.contentService = contentService;
 
@@ -36,5 +38,8 @@ export class ContentComponent implements OnInit {
 
   private updateRoute() {
     this.route = this.router.url;
+    if (this.contentService.currentPage != undefined) {
+      this.content = this.markdownService.compile(this.contentService.currentPage.content);
+    }
   }
 }
