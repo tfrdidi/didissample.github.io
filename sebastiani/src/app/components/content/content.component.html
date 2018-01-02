@@ -7,11 +7,14 @@
   <img class="headerImage" alt="Angular Logo" src="{{contentService?.currentPage?.imageUrl}}">
 </div>
 
-<markdown [data]="contentService?.currentPage?.content">
-</markdown>
+<div class="flexCenterContainer">
+  <h1 class="contentHeading">{{contentService?.currentPage?.title}}</h1>
+  <markdown [data]="contentService?.currentPage?.content">
+  </markdown>
+</div>
 
-Inhaltsverzeichnis:
-<div class="loc">
+
+<div class="flexCenterContainer">
   <div class="subpage" *ngFor="let p of contentService?.completePage?.subpages">
     <a *ngIf="p.url != route" routerLink="{{p.url}}">
       <p>{{p.title}}</p>

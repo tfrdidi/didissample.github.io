@@ -2,6 +2,11 @@ a {
     text-decoration: none;
 }
 
+.flexCenterContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 .headerImage {
     width: 100%;
@@ -17,6 +22,16 @@ a {
     text-align: center;
     margin: 10px 0 10px 0;
 }
+
+.contentHeading {
+    width: 100%;
+    text-align: center;
+}
+
+.subpage {
+    align-self: center;
+}
+
 
 @media (min-width: 500px) {
     .headerImage {

@@ -11,16 +11,16 @@
             "contentUrl": "history.md"
         },
         {
-            "url": "/test",
-            "title": "Test",
+            "url": "/ablauf",
+            "title": "Ablauf des Festes",
             "imageUrl": "start.jpg",
-            "contentUrl": "main.md"
+            "contentUrl": "procedure.md"
         },
         {
             "url": "/pups",
-            "title": "Pups",
+            "title": "Dienstgrade und Funktionen",
             "imageUrl": "start.jpg",
-            "contentUrl": "main.md"
+            "contentUrl": "ranks.md"
         }
     ]
 }

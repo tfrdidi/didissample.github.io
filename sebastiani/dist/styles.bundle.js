@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n* {\r\n    \r\n    padding: 0;\r\n    margin: 0;\r\n    font-family: Arial, Helvetica, sans-serif;\r\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\r\n* {\r\n    padding: 0;\r\n    margin: 0;\r\n    font-family: \"PT Serif\", Georgia, serif;\r\n}\r\n\r\np {\r\n    font-size: 16pt;\r\n    line-height: 1.2em;\r\n    color: rgb(76 ,76, 76);\r\n    padding: 10px;\r\n    -webkit-font-smoothing: antialiased;\r\n    display: block;\r\n    -webkit-margin-before: 0.5em;\r\n    max-width: 645px;\r\n}\r\n\r\nmarkdown h1 {\r\n    text-align: center;\r\n}\r\n\r\nmarkdown {\r\n    -ms-flex-item-align: center;\r\n        -ms-grid-row-align: center;\r\n        align-self: center;\r\n}", ""]);
 
 // exports
 
